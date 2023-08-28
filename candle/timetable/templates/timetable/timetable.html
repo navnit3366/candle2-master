@@ -1,0 +1,35 @@
+{% extends "main/base.html" %}
+
+{% block timetable_menu %}
+        {% include('timetable/tabs_and_actions.html') %}
+{% endblock %}
+
+{% block obsah %}
+    {% if show_welcome %}
+        <div id="welcome">
+            <h2>Vitajte v systéme Candle!</h2>
+            <p>Vyhľadajte rozvrh v ľavom paneli,</p>
+            <p> alebo sa <a href="{{ url_for('auth.login') }}">prihláste</a> a budete si môct vytvárať vlastné rozvrhy.</p>
+        </div>
+    {% else %}
+        <div id="rozvrh">
+            {% include('timetable/timetable_content.html') %}
+        </div>
+        <table id="rozvrhList" class="vysledky_podrobneho_hladania">
+            {% include('timetable/list.html') %}
+        </table>
+    {% endif %}
+{% endblock %}
+
+
+{% block panel %}
+    {% include 'panel/panel.html' %}
+{% endblock %}
+
+{% block script %}
+    {{ super() }}
+    <script src={{ url_for('my_timetable.static', filename='my_timetable.js') }}></script>
+    <script src={{ url_for('panel.static', filename='panel.js') }}></script>
+    <script src={{ url_for('search.static', filename='search.js') }}></script>
+    <script src={{ url_for('timetable.static', filename='timetable.js') }}></script>
+{% endblock %}
